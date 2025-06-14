@@ -1,5 +1,4 @@
-package com.example.clima
-
+package com.example.clima.view.home
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

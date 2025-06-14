@@ -1,4 +1,4 @@
-package com.example.proyectoshopifyka.core
+package com.example.clima.view.home
 
 sealed interface ResultWrapper<out T> {
     data class Success<out T>(val data: T) : ResultWrapper<T>

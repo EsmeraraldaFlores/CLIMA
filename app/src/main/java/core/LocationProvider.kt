@@ -1,5 +1,4 @@
-package com.example.proyectoshopifyka.core
-
+package com.example.clima.view.home
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.annotation.SuppressLint

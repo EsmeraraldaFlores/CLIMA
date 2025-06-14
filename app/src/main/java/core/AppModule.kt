@@ -1,4 +1,4 @@
-package com.example.clima
+package com.example.clima.view.home
 import android.content.Context
 import dagger.Module
 import dagger.Provides

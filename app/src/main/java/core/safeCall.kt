@@ -1,4 +1,4 @@
-package com.example.clima
+package com.example.clima.view.home
 import kotlin.Exception
 
 suspend fun <T> safeCall(block: suspend () -> T): ResultWrapper<T> {
