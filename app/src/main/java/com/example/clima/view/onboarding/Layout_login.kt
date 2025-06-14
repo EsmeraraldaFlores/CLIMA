@@ -1,48 +1,46 @@
 package com.example.clima.view.onboarding
 
-
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import com.example.clima.databinding.FragmentLayoutLoginBinding
-import com.example.clima.utils.FragmentComunicator
-import com.example.clima.viewModel.SignInViewModel
-import androidx.navigation.fragment.findNavController
-import androidx.core.widget.addTextChangedListener
+import android.view.*
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.clima.R
 import com.example.clima.core.LocationProvider
+import com.example.clima.databinding.FragmentLayoutLoginBinding
+import com.example.clima.view.home.FragmentComunicator
 import com.example.clima.view.home.HomeActivity
+import com.example.clima.viewModel.SignInViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class layout_login : Fragment() {
+
     @Inject lateinit var locationProvider: LocationProvider
 
     private var _binding: FragmentLayoutLoginBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<SignInViewModel>()
-    var isValid: Boolean = false
     private lateinit var communicator: FragmentComunicator
+    var isValid: Boolean = false
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
-        val fineLocationGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true
-        val coarseLocationGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
+        val fine = permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true
+        val coarse = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
 
-        if (fineLocationGranted || coarseLocationGranted) {
+        if (fine || coarse) {
             getUserLocation()
         } else {
             Toast.makeText(requireContext(), "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show()
@@ -58,11 +56,9 @@ class layout_login : Fragment() {
         setupView()
         setupObservers()
         return binding.root
-
     }
 
     private fun setupView() {
-
         getUserLocation()
 
         binding.textView2.setOnClickListener {
@@ -71,60 +67,34 @@ class layout_login : Fragment() {
         binding.textView.setOnClickListener {
             findNavController().navigate(R.id.action_layout_login_to_restorePassword)
         }
-
         binding.filledButton.setOnClickListener {
-
-
             if (validateInputs()) {
                 requestLogin()
             } else {
                 Toast.makeText(activity, "Correo y contraseña son obligatorios", Toast.LENGTH_SHORT).show()
             }
-
-
         }
 
         binding.etCorreo.addTextChangedListener {
-            if (binding.etCorreo.text.toString().isEmpty()) {
-                binding.tilCorreo.error = "Por favor introduce un correo "
-                isValid = false
-            } else {
-                isValid = true
-            }
+            binding.tilCorreo.error = if (it.isNullOrEmpty()) "Por favor introduce un correo" else null
+            isValid = validateInputs()
         }
 
         binding.etContrasenia.addTextChangedListener {
-            if (binding.etContrasenia.text.toString().isEmpty()) {
-                binding.tilContrasenia.error = "Por favor introduce una contraseña"
-                isValid = false
-            } else {
-                isValid = true
-            }
+            binding.tilContrasenia.error = if (it.isNullOrEmpty()) "Por favor introduce una contraseña" else null
+            isValid = validateInputs()
         }
-    }
-
-    private fun validateInputs(): Boolean {
-        val emailNotEmpty = binding.etCorreo.text.toString().isNotEmpty()
-        val passwordNotEmpty = binding.etContrasenia.text.toString().isNotEmpty()
-
-        isValid = emailNotEmpty && passwordNotEmpty
-
-        binding.etCorreo.error = if (!emailNotEmpty) "Introduce un correo" else null
-        binding.etContrasenia.error = if (!passwordNotEmpty) "Introduce tu contraseña" else null
-
-        return isValid
     }
 
     private fun setupObservers() {
-
-        viewModel.loaderState.observe(viewLifecycleOwner) { loaderState ->
-            communicator.showLoader(loaderState)
+        viewModel.loaderState.observe(viewLifecycleOwner) {
+            communicator.showLoader(it)
         }
-        viewModel.sessionValid.observe(viewLifecycleOwner) { validSession ->
-            Log.d("layout_login", "Estado de sesión válida: $validSession")
-            if (validSession) {
+
+        viewModel.sessionValid.observe(viewLifecycleOwner) { valid ->
+            if (valid) {
                 val bundle = Bundle().apply {
-                    putString("email", binding.etCorreo.text?.toString() ?: "Correo no disponible")
+                    putString("email", binding.etCorreo.text?.toString() ?: "")
                 }
                 findNavController().navigate(R.id.action_layout_login_to_weatherFragment, bundle)
             } else {
@@ -133,52 +103,58 @@ class layout_login : Fragment() {
         }
     }
 
-    private fun requestLogin() {
-        val email = binding.etCorreo.text?.toString()?.trim() ?: ""
-        val password = binding.etContrasenia.text?.toString()?.trim() ?: ""
+    private fun validateInputs(): Boolean {
+        val emailValid = binding.etCorreo.text.toString().isNotEmpty()
+        val passValid = binding.etContrasenia.text.toString().isNotEmpty()
+        return emailValid && passValid
+    }
 
-        if (email.isEmpty() || password.isEmpty()) {
+    private fun requestLogin() {
+        val email = binding.etCorreo.text.toString().trim()
+        val pass = binding.etContrasenia.text.toString().trim()
+
+        if (email.isEmpty() || pass.isEmpty()) {
             Toast.makeText(activity, "Correo y contraseña son obligatorios", Toast.LENGTH_SHORT).show()
             return
         }
 
-        viewModel.requestSignIn(email, password)
+        viewModel.requestSignIn(email, pass)
     }
 
-    fun getUserLocation() {
+    private fun getUserLocation() {
         if (!hasLocationPermission()) {
-            requestPermissionLauncher.launch(arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ))
+            requestPermissionLauncher.launch(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            )
             return
         }
 
         lifecycleScope.launch {
             try {
                 val location = locationProvider.getCurrentLocation()
-                location?.let {
-                    Log.i("LOCATION", "Ubicación obtenida: ${it.latitude}, ${it.longitude}")
-                } ?: run {
-                    Log.e("LOCATION", "Error al obtener la ubicación")
-                    Toast.makeText(requireContext(), "Error al obtener la ubicación", Toast.LENGTH_SHORT).show()
+                if (location != null) {
+                    Log.i("LOCATION", "Ubicación obtenida: ${location.latitude}, ${location.longitude}")
+                } else {
+                    Log.e("LOCATION", "Ubicación nula")
+                    Toast.makeText(requireContext(), "No se pudo obtener la ubicación", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                Log.e("LOCATION_ERROR", "Error en solicitud de ubicación: ${e.message}")
+                Log.e("LOCATION", "Error: ${e.message}")
             }
         }
     }
 
     private fun hasLocationPermission(): Boolean {
-        return ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        val ctx = requireContext()
+        return ContextCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

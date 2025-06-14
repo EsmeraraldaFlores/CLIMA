@@ -1,20 +1,34 @@
 package com.example.clima.view.home.adapters
 
 import android.view.LayoutInflater
-import androidx.recyclerview.widget.RecyclerView
-import android.view.View
 import android.view.ViewGroup
-import com.example.clima.R
-import android.content.Context
-import android.util.Log
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-//import com.example.clima.databinding.FragmentWeatherItemBinding
+import com.example.clima.databinding.ItemWeatherBinding
 import com.example.clima.model.Weather
 
-import java.text.SimpleDateFormat
-import java.util.*
+class WeatherAdapter(private var weatherList: List<Weather>) : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
 
+    inner class ViewHolder(private val binding: ItemWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Weather) {
+            binding.txtCity.text = item.location.name
+            binding.txtTemp.text = "${item.current.tempc} °C"
+            binding.txtCondition.text = item.current.condition.text
 
-class WeatherAdapter {
+            Glide.with(binding.root.context)
+                .load("https:${item.current.condition.icon}")
+                .into(binding.imgIcon)
+        }
+    }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemWeatherBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(weatherList[position])
+    }
+
+    override fun getItemCount(): Int = weatherList.size
 }

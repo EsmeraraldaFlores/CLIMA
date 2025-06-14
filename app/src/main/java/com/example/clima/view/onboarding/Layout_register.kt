@@ -12,7 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.clima.databinding.FragmentLayoutRegisterBinding
-import com.example.clima.utils.FragmentComunicator
+import com.example.clima.view.home.FragmentComunicator
 import com.example.clima.view.home.HomeActivity
 import com.example.clima.viewModel.SignUpViewModel
 import android.util.Log

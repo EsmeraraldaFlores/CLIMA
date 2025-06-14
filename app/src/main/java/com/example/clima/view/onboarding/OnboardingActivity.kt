@@ -1,21 +1,11 @@
 package com.example.clima.view.onboarding
 
-import com.example.clima.view.home.FragmentComunicator
 import android.os.Bundle
 import android.view.View
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.example.clima.R
 import com.example.clima.databinding.ActivityOnboardingBinding
-import com.example.clima.utils.FragmentComunicator
-import com.google.android.material.bottomnavigation.BottomNavigationView
-
+import com.example.clima.view.home.FragmentComunicator
+import com.example.clima.R
 
 class OnboardingActivity : AppCompatActivity(), FragmentComunicator {
 
@@ -33,6 +23,6 @@ class OnboardingActivity : AppCompatActivity(), FragmentComunicator {
     }
 
     override fun enviarMensaje(mensaje: String) {
-
+        // Aquí puedes implementar lógica si se requiere usar esta función
     }
 }

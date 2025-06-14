@@ -14,7 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.clima.R
 import com.example.clima.databinding.FragmentSecondBinding
-import com.example.clima.utils.FragmentComunicator
+import com.example.clima.view.home.FragmentComunicator
 import com.example.clima.view.home.HomeActivity
 import com.example.clima.view.home.WeatherFragment
 import com.example.clima.viewModel.PersonalInfoViewModel

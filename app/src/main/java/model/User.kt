@@ -1,11 +1,4 @@
-package com.example.proyectoshopifyka.model
+package com.example.clima.view.home
 
 import java.util.*
 
-data class User(
-    val id: String = "",
-    val name: String = "",
-    val lastName: String = "",
-    val userName: String = "",
-    val bornDate: Date = Date()
-)

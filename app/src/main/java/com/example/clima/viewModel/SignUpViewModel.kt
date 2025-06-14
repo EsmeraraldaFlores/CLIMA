@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.example.clima.repository.UserRepository
 
-import com.example.clima.core.ResultWrapper
+import com.example.clima.repository.ResultWrapper
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(

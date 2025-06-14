@@ -1,5 +1,8 @@
 package com.example.clima.repository
 
+import com.example.clima.repository.ResultWrapper
+import com.example.clima.repository.safeCall
+import com.example.clima.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore

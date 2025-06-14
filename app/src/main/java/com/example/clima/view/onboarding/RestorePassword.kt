@@ -11,8 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.clima.R
 import com.example.clima.databinding.FragmentLayoutRegisterBinding
 import com.example.clima.databinding.FragmentRestorePasswordBinding
-import com.example.clima.utils.FragmentComunicator
-
+import com.example.clima.view.home.FragmentComunicator
 class restorePassword : Fragment() {
     // TODO: Rename and change types of parameters
     private var _binding: FragmentRestorePasswordBinding? = null
