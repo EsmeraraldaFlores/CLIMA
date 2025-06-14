@@ -11,7 +11,8 @@ import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.example.clima.network.UserRepository
+import com.example.clima.repository.UserRepository
+
 import com.example.clima.core.ResultWrapper
 
 @HiltViewModel

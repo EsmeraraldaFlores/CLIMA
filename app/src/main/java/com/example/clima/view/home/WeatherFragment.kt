@@ -1,40 +1,30 @@
 package com.example.clima.view.home
 
-
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.clima.core.LocationProvider
 import com.example.clima.databinding.FragmentWeatherBinding
-import com.example.clima.model.Weather
+import com.example.clima.view.home.adapters.ForecastDayAdapter
 import com.example.clima.view.home.viewModel.WeatherFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
-
-import android. widget. Toast
-import androidx.lifecycle.LiveData
-import androidx. recyclerview. widget. LinearLayoutManager
-import androidx. lifecycle. MutableLiveData
-import com. example. clima. model. ForecastResponse
-import com. example. clima. view. home. adapters. ForecastDayAdapter
-import java.time.LocalTime
+import java.util.*
 
 @AndroidEntryPoint
 class WeatherFragment : Fragment() {
 
-    private val viewModel: WeatherFragmentViewModel by viewModels() // ✅ Corrección
-
+    private val viewModel: WeatherFragmentViewModel by viewModels()
     private var _binding: FragmentWeatherBinding? = null
     private val binding get() = _binding!!
 
-
     private lateinit var forecastAdapter: ForecastDayAdapter
+    private val locationProvider by lazy { LocationProvider(requireActivity()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,18 +34,19 @@ class WeatherFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inicializar adapter con lista vacía
         forecastAdapter = ForecastDayAdapter(emptyList())
         binding.recyclerViewWeather.apply {
             adapter = forecastAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-        viewModel.fetchForecast("dee6bfa4fe7f459f97e15507252005")
 
+        locationProvider.getLastLocation { location ->
+            val loc = location?.let { "${it.latitude},${it.longitude}" } ?: "19.4326,-99.1332"
+            viewModel.fetchForecast("dee6bfa4fe7f459f97e15507252005", loc)
+        }
 
         viewModel.forecastInfo.observe(viewLifecycleOwner) { forecastResponse ->
             val today = forecastResponse.current
@@ -69,30 +60,24 @@ class WeatherFragment : Fragment() {
 
             binding.textSaludo.text = "${getGreeting()} WASIM"
             binding.textSemana.text = formatLastUpdated(today.lastupdated)
-
-            //Log.d("Fragment", "Lista de días antes de actualizar el RecyclerView: ${forecastResponse.forecast.forecastday}")
             forecastAdapter.updateData(forecastResponse.forecast.forecastday)
-
         }
     }
 
-
-
     private fun getGreeting(): String {
-        val calendar = Calendar.getInstance()
-        val hour = calendar.get(Calendar.HOUR_OF_DAY)
-        return when (hour) {
+        return when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
             in 0..11 -> "BUENOS DÍAS"
             in 12..17 -> "BUENAS TARDES"
-            else -> "BUENAS TARDES"
+            else -> "BUENAS NOCHES"
         }
     }
 
     private fun formatLastUpdated(raw: String): String {
         val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         val outputFormat = SimpleDateFormat("EEEE, hh:mm a", Locale.getDefault())
-        val date = inputFormat.parse(raw)
-        return date?.let { outputFormat.format(it).uppercase(Locale.getDefault()) } ?: raw
+        return inputFormat.parse(raw)?.let {
+            outputFormat.format(it).uppercase(Locale.getDefault())
+        } ?: raw
     }
 
     override fun onDestroyView() {

@@ -1,8 +1,5 @@
-package com.example.proyectoshopifyka.network
+package com.example.clima.repository
 
-import com.example.proyectoshopifyka.core.ResultWrapper
-import com.example.proyectoshopifyka.core.safeCall
-import com.example.proyectoshopifyka.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore

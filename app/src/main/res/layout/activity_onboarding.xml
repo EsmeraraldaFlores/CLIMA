@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/mainContainerView"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".view.onboarding.OnboardingActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/homeContainerView"
@@ -15,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/home_graph" />
+        app:navGraph="@navigation/home_graph"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
@@ -32,10 +35,10 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/mainContainerView"
-        app:layout_constraintEnd_toEndOf="@id/mainContainerView"
-        app:layout_constraintStart_toStartOf="@id/mainContainerView"
-        app:layout_constraintTop_toBottomOf="@id/mainContainerView">
+        app:layout_constraintBottom_toBottomOf="@id/main"
+        app:layout_constraintEnd_toEndOf="@id/main"
+        app:layout_constraintStart_toStartOf="@id/main"
+        app:layout_constraintTop_toBottomOf="@id/main">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/view"
@@ -51,6 +54,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--    aaaaaaaaaaaaaaa-->
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
