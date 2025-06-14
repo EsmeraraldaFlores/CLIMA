@@ -1,4 +1,5 @@
-package com.example.clima
+package com.example.proyectoshopifyka.core
+
 import android.content.Context
 import dagger.Module
 import dagger.Provides

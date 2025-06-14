@@ -1,4 +1,5 @@
-package com.example.clima
+package com.example.proyectoshopifyka.core
+
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 

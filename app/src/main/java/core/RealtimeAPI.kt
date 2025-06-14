@@ -1,4 +1,5 @@
-package com.example.clima
+package com.example.proyectoshopifyka.core
+
 import com.example.proyectoshopifyka.model.ForecastResponse
 import com.example.proyectoshopifyka.model.Weather
 import retrofit2.Response

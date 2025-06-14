@@ -1,4 +1,4 @@
-package com.example.clima
+package com.example.proyectoshopifyka.core
 
 import dagger.Module
 import dagger.Provides
