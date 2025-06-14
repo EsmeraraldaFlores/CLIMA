@@ -32,7 +32,7 @@ class DetalleClimaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.weatherInfo.observe(viewLifecycleOwner) { weather ->
+        viewModel.weatherInfo.observe(viewLifecycleOwner) { rrweather ->
             binding.textCiudad.text = weather.location.name
             binding.textTemp.text = "${weather.current.tempc} °C"
             binding.textSaludo.text = weather.current.condition.text

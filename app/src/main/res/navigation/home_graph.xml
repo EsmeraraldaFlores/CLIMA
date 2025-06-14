@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/layout_login">
+
+    <fragment
+        android:id="@+id/layout_login"
+        android:name="com.example.clima.view.onboarding.layout_login"
+        android:label="layout_login" >
+        <action
+            android:id="@+id/action_layout_login_to_layout_register"
+            app:destination="@id/layout_register" />
+        <action
+            android:id="@+id/action_layout_login_to_restorePassword"
+            app:destination="@id/restorePassword" />
+        <action
+            android:id="@+id/action_layout_login_to_weatherFragment"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/layout_register"
+        android:name="com.example.clima.view.onboarding.layout_register"
+        android:label="layout_register" >
+        <action
+            android:id="@+id/action_layout_register_to_layout_login"
+            app:destination="@id/layout_login" />
+        <action
+            android:id="@+id/action_layout_register_to_secondFragment"
+            app:destination="@id/secondFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/restorePassword"
+        android:name="com.example.clima.view.onboarding.restorePassword"
+        android:label="restorePassword" >
+        <action
+            android:id="@+id/action_restorePassword_to_layout_login"
+            app:destination="@id/layout_login" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/secondFragment"
+        android:name="com.example.clima.view.onboarding.SecondFragment"
+        android:label="fragment_second"
+        tools:layout="@layout/fragment_second" >
+        <argument
+            android:name="userId"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_secondFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.clima.view.home.WeatherFragment"
+        android:label="@string/home_fragment" >
+        <action
+            android:id="@+id/action_weatherFragment_to_forecastFragment"
+            app:destination="@id/forecastFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/forecastFragment"
+        android:label="@string/forecast_fragment"
+        tools:layout="@layout/fragment_forecast" >
+        <action
+            android:id="@+id/action_forecastFragment_to_weatherFragment"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.clima.view.home.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.clima.view.home.ProfileFragment"
+        android:label="@string/profile_fragment"
+        tools:layout="@layout/fragment_profile" >
+        <argument
+            android:name="userId"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_navigation_profile_to_updatePersonalInfoFragment"
+            app:destination="@id/updatePersonalInfoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/updatePersonalInfoFragment"
+        android:name="com.example.clima.view.home.UpdatePersonalInfoFragment"
+        android:label="fragment_update_personal_info"
+        tools:layout="@layout/fragment_update_personal_info" >
+        <argument
+            android:name="userId"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_updatePersonalInfoFragment_to_navigation_profile"
+            app:destination="@id/navigation_profile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/weatherItemFragment"
+        android:label="fragment_weather_item"
+        tools:layout="@layout/fragment_item_forecast_day" />
+
+    <fragment
+        android:id="@+id/navigation_detalle"
+        android:name="com.example.clima.view.home.DetalleClimaFragment"
+        android:label="DetalleClimaFragment" />
+</navigation>

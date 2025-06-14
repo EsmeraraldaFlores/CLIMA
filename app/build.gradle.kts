@@ -29,15 +29,19 @@ android {
             )
         }
     }
+
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
-    }
-    buildFeatures {
-        viewBinding = true
     }
 }
 
@@ -49,6 +53,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
+    // Test
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -56,7 +62,7 @@ dependencies {
     // Lottie
     implementation(libs.lottie)
 
-    // Firebase dependencies
+    // Firebase
     implementation(platform(libs.firebase))
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
@@ -69,14 +75,18 @@ dependencies {
     // Glide
     implementation(libs.glide)
 
-    // Location
+    // Location Services
     implementation(libs.location)
     implementation(libs.coroutines.play)
 
-    // Dagger hilt
+    // Hilt
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
 
-    //kotlinx-datetime
+    // Kotlinx Datetime
     implementation(libs.kotlinx.datetime)
+}
+
+kapt {
+    correctErrorTypes = true
 }
