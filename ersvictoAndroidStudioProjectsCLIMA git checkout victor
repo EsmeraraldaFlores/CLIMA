@@ -1,0 +1,15 @@
+* [33mca13cae[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mvictor[m[33m, [m[1;31morigin/victor[m[33m)[m Implementé cambios
+*   [33m5698571[m Merge branch 'eduardoMJ' into victor
+[32m|[m[33m\[m  
+[32m|[m * [33ma863db2[m[33m ([m[1;32meduardoMJ[m[33m)[m Correccion de errores y se crea onboarding
+[32m|[m * [33m602e99b[m Se agrega Fragments de ViewModel en Home
+[32m|[m * [33m55d2b6d[m Se agrega Fragments
+[32m|[m * [33m7c824db[m ViewModel hecho
+[32m|[m * [33me6085f0[m cambios
+[32m|[m * [33m2acabd1[m Se agrega libs y viewModel
+[32m|[m * [33m013b495[m Se agrega colors
+[32m|[m * [33m93ab3d9[m Se agrega strings
+[32m|[m * [33m9a39547[m Primer commit
+* [33m|[m [33m29b70d1[m[33m ([m[1;31morigin/dev[m[33m)[m Optimización y reducción de código sin pérdida de funcionalidad
+[33m|[m[33m/[m  
+* [33m9876060[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m Commit 1
