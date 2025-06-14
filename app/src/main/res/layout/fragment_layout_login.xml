@@ -19,6 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:startIconDrawable="@drawable/baseline_email_24"
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -40,6 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_correo"
+        app:startIconDrawable="@drawable/baseline_https_24"
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -67,6 +69,7 @@
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_marginTop="32dp"
+        android:src="@drawable/baseline_person_24"
         android:src="@drawable/ic_user"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
